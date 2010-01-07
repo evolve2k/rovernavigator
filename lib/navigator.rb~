@@ -1,0 +1,2 @@
+require 'navigator/system'
+require 'navigator/plateu'

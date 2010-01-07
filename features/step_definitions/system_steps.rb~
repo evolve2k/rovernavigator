@@ -1,0 +1,27 @@
+Given /^I have not yet entered any navigation instructions$/ do
+end
+
+When /^I start the navigation system$/ do
+  @messenger = StringIO.new
+  system = Navigator::System.new(@messenger)
+  system.start
+end
+
+Then /^I should see "([^\"]*)"$/ do |message|
+  @messenger.string.split("\n").should include(message)
+end
+
+Given /^I have started the navigation system$/ do
+  @messenger = StringIO.new
+  system = Navigator::System.new(@messenger)
+  system.start
+end
+
+When /^Engineer submits plateu size of <plateu_size>$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^plateu size should be <plateu_size>$/ do
+  pending # express the regexp above with the code you wish you had
+end
+

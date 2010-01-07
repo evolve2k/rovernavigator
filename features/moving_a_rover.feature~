@@ -1,0 +1,12 @@
+Feature: Moving a rover around a plateu
+
+In order for the NASA rovers to get a complete view of the surrounding terrain to send back to Earth
+As a NASA Engineer
+I want to be able to send commands so I can navigate a rover around the plateu
+
+ Scenario: Moving a rover
+   Given I have a plateu which is 5 units high by 5 units wide
+   And a I have a rover at position 1,2 facing North
+   When I give the rover the instructions LMLMLMLMM
+   Then the rover should move until it reaches the position 1,3 
+   And the rover should be facing North
