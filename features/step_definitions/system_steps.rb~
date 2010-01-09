@@ -11,17 +11,24 @@ Then /^I should see "([^\"]*)"$/ do |message|
   @messenger.string.split("\n").should include(message)
 end
 
-Given /^I have started the navigation system$/ do
+Given /^I have started the system$/ do
   @messenger = StringIO.new
   system = Navigator::System.new(@messenger)
   system.start
 end
 
-When /^Engineer submits plateu size of <plateu_size>$/ do
-  pending # express the regexp above with the code you wish you had
+When /^I provide a instruction file called '([^\"]*)'$/ do |filename|
+  @messenger = StringIO.new
+  system = Navigator::System.new(@messenger)
+  system.start
+  system.get_file
 end
 
-Then /^plateu size should be <plateu_size>$/ do
-  pending # express the regexp above with the code you wish you had
+Then /^the system should read in the file and have it ready for processing$/ do
+  @messenger = StringIO.new
+  system = Navigator::System.new(@messenger)
+  system.start
+  system.get_file
+  system.read_file
 end
 

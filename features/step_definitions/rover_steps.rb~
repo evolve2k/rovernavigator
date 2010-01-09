@@ -21,7 +21,7 @@ Given /^a I have a rover at position (\d*),(\d*) facing "([^\"]*)"$/ do |x,y,dir
 end
 
 
-When /^I give the rover the instructions ([^\"]*)$/ do |instructions|
+When /^I give the rover the instructions "([^\"]*)"$/ do |instructions|
   @rover = Navigator::Rover.new(@messenger,1,2,"North")  
   @rover.move(instructions)  
 end

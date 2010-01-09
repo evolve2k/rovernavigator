@@ -1,0 +1,116 @@
+require File.join(File.dirname(__FILE__), "..","spec_helper")
+
+module Navigator
+
+  describe Rover do
+
+    before(:each) do
+      @rover = Rover.new(@messenger,1,2,"North")
+    end
+     
+    it "should have a x position" do 
+      @rover.should respond_to(:x_position)
+    end
+    
+    it "should have a y position" do
+      @rover.should respond_to(:y_position)
+    end   
+    
+    it "should have a direction facing" do
+      @rover.should respond_to(:direction_facing)
+    end
+
+    it "should have a current position" do
+      @x_position = @rover.x_position
+      @y_position = @rover.y_position
+      @direction_facing = @rover.direction_facing
+      @current_position = @rover.current_position
+      @current_position.should == { "x_position" => 1, "y_position" => 2, "direction_facing" => "North"}
+    end
+   
+    context "when I send a move command to a rover" do
+      
+      it "should be able to move when I give it instructions to move" do         
+        @rover.should respond_to(:move)
+      end
+      
+      it "should change direction left if sent a command to turn left" do
+        desired_direction = "West"
+        @rover.move "L"
+        @rover.direction_facing.should == desired_direction
+        
+      end  
+
+      it "should see all directions when rotating left through 360" do
+        @rover.move("L")
+        @rover.direction_facing.should == "West"
+        @rover.move("L")
+        @rover.direction_facing.should == "South"
+        @rover.move("L")
+        @rover.direction_facing.should == "East"
+        @rover.move("L")
+        @rover.direction_facing.should == "North"
+        @rover.move("L")
+        @rover.direction_facing.should == "West"
+      end
+
+      
+      it "should change direction right if sent a command to turn right" do
+        desired_direction = "East"
+        @rover.move("R")
+        @rover.direction_facing.should == desired_direction
+      end
+
+      it "should see all directions when rotating right through 360" do
+        @rover.direction_facing.should == "North"
+        @rover.move("R")
+        @rover.direction_facing.should == "East"
+        @rover.move("R")
+        @rover.direction_facing.should == "South"
+        @rover.move("R")
+        @rover.direction_facing.should == "West"
+        @rover.move("R")
+        @rover.direction_facing.should == "North"
+      end
+
+      
+    end    
+   
+    context "moving" do
+      context "in the direction it is current facing" do
+  
+        it "should move north if facing north" do
+          @rover = Rover.new(@messenger,2,2,"North")
+          @rover.move("M")
+          @rover.current_position.should == {"x_position" => 2,"y_position" => 3,"direction_facing" => "North"}          
+        end
+    
+        it "should move south if facing south" do
+          @rover = Rover.new(@messenger,2,2,"South")
+          @rover.move("M")
+          @rover.current_position.should == {"x_position" => 2,"y_position" => 1,"direction_facing" => "South"}
+        end
+    
+        it "should move east if facing east" do
+          @rover = Rover.new(@messenger,2,2,"East")
+          @rover.move("M")
+          @rover.current_position.should == {"x_position" => 3,"y_position" => 2,"direction_facing" => "East"}
+        end
+        
+        it "should move west if facing west" do
+          @rover = Rover.new(@messenger,2,2,"West")
+          @rover.move("M")
+          @rover.current_position.should == {"x_position" => 1,"y_position" => 2,"direction_facing" => "West"}
+        end
+        
+      end
+    end
+    
+    it "should be able to accept and process a string of instructions" do
+       @rover = Rover.new(@messenger,0,0,"South")
+       @rover.move("MMMMM") #LMLMLMLMM
+       @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
+    end
+               
+  end
+end

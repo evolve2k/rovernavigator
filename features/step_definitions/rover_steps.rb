@@ -34,7 +34,3 @@ end
 Then /^the rover should be facing "([^\"]*)"$/ do |direction_facing|
   @rover.direction_facing.should == direction_facing
 end
-
-
-
-
