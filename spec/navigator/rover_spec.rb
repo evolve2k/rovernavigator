@@ -27,11 +27,7 @@ module Navigator
       @current_position = @rover.current_position
       @current_position.should == { "x_position" => 1, "y_position" => 2, "direction_facing" => "North"}
     end
- 
-    it "should have CORRECT MOCKING!!!" do
-      pending
-    end
-  
+   
     context "when I send a move command to a rover" do
       
       it "should be able to move when I give it instructions to move" do         
@@ -39,9 +35,9 @@ module Navigator
       end
       
       it "should change direction left if sent a command to turn left" do
-        #desired_direction = "West"
+        desired_direction = "West"
         @rover.move "L"
-        #@rover.direction_facing.should == desired_direction
+        @rover.direction_facing.should == desired_direction
         
       end  
 
@@ -115,14 +111,6 @@ module Navigator
        @rover.move("MMMMM") #LMLMLMLMM
        @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
     end
-    
-    it "should be able to accept and process a string of instructions" do
-       @rover = Rover.new(@messenger,0,0,"North")
-       @rover.move("MMMMMRMM") #LMLMLMLMM
-       @rover.current_position.should == {"x_position" => 2,"y_position" => 5,"direction_facing" => "East"}   
-    end
-    
-       
+               
   end
-  
 end
