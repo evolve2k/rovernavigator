@@ -9,6 +9,7 @@ module Navigator
       @plateu = Plateu.new(@messenger)          
     end 
     
+    
     it "should have a length" do
       @plateu.should respond_to(:length) 
     end  
@@ -37,4 +38,6 @@ module Navigator
       @plateu.width.should == @width
     end 
   end
+
+
 end

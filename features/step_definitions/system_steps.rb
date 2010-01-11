@@ -38,9 +38,7 @@ Then /^the system should process the file and move the rover at start position 1
   system.start
   system.get_file
   system.read_file
-  rover = Navigator::Rover.new(
-  
-  
+  rover = Navigator::Rover.new()
 end
 
 Then /^display the final position of the rover to the screen as 1 3 N$/ do
@@ -54,7 +52,3 @@ end
 Then /^display the final position of the rover to the screen as 5 1 E$/ do
   pending # express the regexp above with the code you wish you had
 end
-
-
-
-

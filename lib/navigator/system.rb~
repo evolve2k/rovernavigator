@@ -21,7 +21,10 @@ module Navigator
     
     def initialize_file
       @instruction_file = "instructions/input1.txt" #if (@instruction_file.nil? || @instruction_file.empty?)
-      
+    end
+
+    def check_if_file_exists
+      FileTest.exists?(@instruction_file)
     end
     
     def read_file
