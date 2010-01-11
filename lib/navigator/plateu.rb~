@@ -21,9 +21,9 @@ module Navigator
 #      @width
 #    end 
 
-    def set_width(width) 
-      @width = width
-    end    
+#    def set_width(width) 
+#      @width = width
+#    end    
 
   end
 end
