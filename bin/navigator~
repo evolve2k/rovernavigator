@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.push File.join(File.dirname(__FILE__),".." ,"lib" )
+require 'navigator'
+
+system = Navigator::System.new(STDOUT)
+system.start
+system.get_file
