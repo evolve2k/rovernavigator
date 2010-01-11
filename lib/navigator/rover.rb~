@@ -8,7 +8,7 @@ module Navigator
       @x_position = x
       @y_position = y
       @direction_facing = direction_facing
-      @directions = ["North","East","South","West"]
+      @DIRECTIONS = ["North","East","South","West"]
     end
         
     def current_position
@@ -31,13 +31,13 @@ module Navigator
     def turn_left
       direction_id = @directions.find_index(@direction_facing) #Find id for current direction
       #point the direction of the direction id before the current unless at front of the array
-      @direction_facing = @directions[direction_id - 1] 
+      @direction_facing = @directions[direction_id - 1] # Negative index counts backwards from the end of the array
     end    
     
     def turn_right
       direction_id = @directions.find_index(@direction_facing) #Find id for current direction
       #point the direction of the direction id after the current unless at the end of the array
-      @direction_facing = (direction_id == @directions.length - 1) ? @directions.first : @directions[direction_id + 1]
+      @direction_facing = (@directions[direction_id] == @directions.last) ? @directions.first : @directions[direction_id + 1]
     end    
    
     def move_forward

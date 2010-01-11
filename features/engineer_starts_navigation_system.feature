@@ -8,4 +8,4 @@ Scenario: Start navigation system
   Given I have not yet entered any navigation instructions
   When I start the navigation system
   Then I should see "--< Welcome to the NASA Mars Rover Navigation Console >--"
-  And I should see "Enter name of instruction file to process (eg input1.txt):"
+  And I should see "Enter name of instruction file to process {eg instructions/input1.txt (default)}:"

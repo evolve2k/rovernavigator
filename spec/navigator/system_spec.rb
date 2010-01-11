@@ -20,7 +20,7 @@ module Navigator
       end
 
       it "should prompt for the user to enter the name of the instruction file to process" do
-        @messenger.should_receive(:puts).with("Enter name of instruction file to process (eg input1.txt):")
+        @messenger.should_receive(:puts).with("Enter name of instruction file to process {eg instructions/input1.txt (default)}:")
         @system.start        
       end
     end
@@ -35,7 +35,7 @@ module Navigator
        @system.should respond_to(:read_file)
      end
      
-     it "should read in the instruction file" do
+     it "should read in the instruction file and create rover definitions" do
        @system.instruction_file = 'instructions/input1.txt'
        @system.read_file
        @system.rovers.empty?.should be_false
@@ -50,6 +50,23 @@ module Navigator
        @system.plateu_definition.should == first_line
      end
      
+     it "should default instruction file to 'instructions/input1.txt' if no file is provided" do
+       @system.instruction_file = ""
+       @system.initialize_file
+       @system.instruction_file.should == 'instructions/input1.txt'
+     end  
+     
+     it "should ensure the selected file exist before processing the file further" do
+       @system.instruction_file = "instructions/bogusfile.txt"
+       @system.check_if_file_exists.should be_false
+     end
+     
+     it "should report if the file has been read successfully" do
+       
+     end 
+   
+   
+           
    end   
   end   
 end
