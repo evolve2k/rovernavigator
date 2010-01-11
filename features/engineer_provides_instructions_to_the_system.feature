@@ -13,5 +13,5 @@ Feature: Engineer provides instructions to the system
     
     Scenarios: Rover positions
     | start position | final position |
-    | 1 2 N          | 1 3 N          |
-    | 3 3 E          | 5 1 E          |
+    | '1 2 N'        | '1 3 N'        |
+    | '3 3 E'        | '5 1 E'        |

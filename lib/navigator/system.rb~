@@ -39,6 +39,14 @@ module Navigator
         end
       end
     end
+    
+    def initialize_plateu
+    
+    end
+    
+    def initilize_rovers
+    
+    end
 
   end
 

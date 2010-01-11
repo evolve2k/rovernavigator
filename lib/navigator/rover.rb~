@@ -8,7 +8,7 @@ module Navigator
       @x_position = x
       @y_position = y
       @direction_facing = direction_facing
-      @DIRECTIONS = ["North","East","South","West"]
+      @directions = ["North","East","South","West"]
     end
         
     def current_position

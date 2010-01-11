@@ -61,12 +61,22 @@ module Navigator
        @system.check_if_file_exists.should be_false
      end
      
-     it "should report if the file has been read successfully" do
-       
+     it "should report if the file has been read successfully" do       
      end 
    
-   
-           
    end   
+   
+   context "initializing the plateu from the input data" do
+     it "should read the plateu definition and check that the input is valid" 
+     it "should read the plateu definition and create a new plateu"   
+   end
+   
+   context "initializing the rovers from the input data" do
+     "it should read each rovers start position and check that input is valid"
+     "it should read each rovers instructions and check that they are valid"
+     "it should create a new rover object and send it instructions to move"    
+   end
+   
+   
   end   
 end
