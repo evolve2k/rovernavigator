@@ -8,9 +8,9 @@ Given /^the plateu is (\d*) units long by (\d*) units wide$/ do |length,width|
   @width = width.to_i
   @messenger = StringIO.new
   plateu = Navigator::Plateu.new(@messenger)
-  plateu.set_length(@length)
+  plateu.length = @length
   plateu.length.should == @length
-  plateu.set_width(@width)
+  plateu.width = @width
   plateu.width.should == @width
 end
 

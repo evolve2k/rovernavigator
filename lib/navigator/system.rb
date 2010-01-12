@@ -2,8 +2,8 @@ module Navigator
   class System
 
     attr_accessor :instruction_file
-    attr_reader :plateu_definition
-    attr_reader :rovers
+    attr_accessor :plateu_definition
+    attr_reader :rovers, :plateu_width_definition, :plateu_length_definition
 
     def initialize(messenger)
       @messenger = messenger
@@ -31,17 +31,27 @@ module Navigator
       @rovers = []
       File.open(@instruction_file,"r") do |file|
         @plateu_definition = file.gets.chomp #sets the plateu size definition to the first line of the file
-        @messenger.puts "Plateu definition: " + @plateu_definition 
         while line = file.gets
           rover_definition = {:start_position => line, :instructions => file.gets}
-          @messenger.puts rover_definition
           @rovers << rover_definition
         end
       end
+      @messenger.puts "Plateu definition: " + @plateu_definition       
+      @messenger.puts @rovers
+      @messenger.puts @plateu_array
+    end
+    
+    def process_instruction_file
     end
     
     def initialize_plateu
-    
+      @plateu_area = @plateu_definition.split
+      @plateu_width_definition = @plateu_area[0].to_i
+      @plateu_length_definition = @plateu_area[1].to_i
+      #plateu_array.each do |p|
+        #code
+      #end 
+      
     end
     
     def initialize_rovers

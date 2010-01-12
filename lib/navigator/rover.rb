@@ -3,10 +3,10 @@ module Navigator
   
     attr_reader :x_position, :y_position, :direction_facing
 
-    def initialize(messenger,x,y,direction_facing)
+    def initialize(messenger,x_position,y_position,direction_facing)
       @messenger = messenger
-      @x_position = x
-      @y_position = y
+      @x_position = x_position
+      @y_position = y_position
       @direction_facing = direction_facing
       @directions = ["North","East","South","West"]
     end

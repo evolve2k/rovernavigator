@@ -39,12 +39,20 @@ Then /^the system should process the file and move the rover at start position '
   system.get_file
   system.read_file
   system.initialize_plateu
-  system.initialize_rovers(start_position)
+  system.initialize_rovers
   plateu = Navigator::Plateu.new(@messenger)
   rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
   
 end
 
 Then /^display the final position of the rover to the screen as '([^\"]*)'$/ do |final_position|
-  pending # express the regexp above with the code you wish you had
+  @messenger = StringIO.new
+  system = Navigator::System.new(@messenger)
+  system.start
+  system.get_file
+  system.read_file
+  system.process_instruction_file
+  rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
+  rover.current_position.should == final_position
+
 end
