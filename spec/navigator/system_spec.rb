@@ -76,24 +76,32 @@ module Navigator
        @system.plateu_length_definition.should == 7
      end 
          
-     it "should read the plateu definition and check that the inputs are valid" do
-       #Valid numbers are positive integers greater than zero
-       #Should store the 
-       @system.plateu_definition = '7 9'
-       @system.initialize_plateu
-       
-     end  
+     it "should create a new plateu using the newly defined plateu inputs" do
+       @system.plateu_definition = '5 7'
+       @system.initialize_plateu       
+       #@plateu.width.should == @system.plateu_width_definition
+       #@plateu.length.should == @system.plateu_length_definition
+     end
      
+     it "should read the plateu definition and check that the inputs are valid" do
+#      Valid numbers are positive integers greater than zero
+#      Should store the 
+#      @system.plateu_definition = '7 9'
+#      @system.initialize_plateu
+     end 
+
         
    end
    
    context "initializing the rovers from the input data" do
-   
-     it "should read lines in the instruction file and create inputs for creating a new rover" do
+     it "should read a rover start position and create a new rover" do
+       start_position = "1 2 N"
        
-   
+           
      end
-     
+
+   
+     it "should read lines in the instruction file and create inputs for creating a new rover" 
      it "should read in the start position and break it into key components" 
      it "should read each rovers start position and check that input is valid" 
      it "should read each rovers instructions and check that they are valid"

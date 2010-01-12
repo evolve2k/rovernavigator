@@ -5,3 +5,4 @@ require 'navigator'
 system = Navigator::System.new(STDOUT)
 system.start
 system.get_file
+system.read_file
