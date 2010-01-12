@@ -16,8 +16,10 @@ end
 
 Given /^a I have a rover at position (\d*),(\d*) facing "([^\"]*)"$/ do |x,y,direction_facing|
   rover = Navigator::Rover.new(@messenger,x,y,direction_facing)
+  x_position = x.to_i
+  y_position = y.to_i
   @current_position = rover.current_position #returns hash of x,y,direction_facing
-  @current_position.should == {"x_position" => x, "y_position" => y, "direction_facing" => direction_facing}  #Should equal a hash/array of the three inputs
+  @current_position.should == {"x_position" => x_position, "y_position" => y_position, "direction_facing" => direction_facing}  #Should equal a hash/array of the three inputs
 end
 
 

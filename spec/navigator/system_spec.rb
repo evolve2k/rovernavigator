@@ -96,10 +96,14 @@ module Navigator
    context "initializing the rovers from the input data" do
      it "should read a rover start position and create a new rover" do
        start_position = "1 2 N"
-       
+       @system.rovers
            
      end
-
+     
+     it "should print the current rover position code after moving" do
+       #@messenger.should_receive(:puts).with("1 2 N")
+       #@messenger.puts @rover.position_code
+     end
    
      it "should read lines in the instruction file and create inputs for creating a new rover" 
      it "should read in the start position and break it into key components" 

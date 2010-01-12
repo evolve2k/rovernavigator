@@ -53,6 +53,6 @@ Then /^display the final position of the rover to the screen as '([^\"]*)'$/ do 
   system.read_file
   system.process_instruction_file
   rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
-  rover.current_position.should == final_position
+  rover.position_code.should == final_position
 
 end

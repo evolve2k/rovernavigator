@@ -29,17 +29,21 @@ module Navigator
     
     def read_file
       @rovers = []
+      rover_number = 0
       File.open(@instruction_file,"r") do |file|
+        @messenger.puts "Processing File.."      
         @plateu_definition = file.gets.chomp #sets the plateu size definition to the first line of the file
+        @messenger.puts "Plateu area defined: " + @plateu_definition   
         while line = file.gets
           rover_definition = {:start_position => line.split, :instructions => file.gets}
           @rovers << rover_definition
+          @messenger.puts "Rover #{rover_number = rover_number + 1}:"
+          @messenger.puts " - Start position: #{rover_definition[:start_position]}"
+          @messenger.puts " - Instructions: #{rover_definition[:instructions]} \n"  
         end
       end
-      @messenger.puts "Plateu definition: " + @plateu_definition   
-      @messenger.puts @rovers
-      @messenger.puts @plateu_array
       initialize_plateu
+      @messenger.puts "Output:"      
       initialize_rovers
     end
     
@@ -56,7 +60,14 @@ module Navigator
     end
     
     def initialize_rovers
-              
+      @rovers.each do |rover|
+        x_definition = rover[:start_position][0]
+        y_definition = rover[:start_position][1]
+        direction_definition = rover[:start_position][2]
+        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, "North")
+        @rover.move("LMLMLMLMM")
+        @messenger.puts @rover.position_code
+      end    
     end
 
   end

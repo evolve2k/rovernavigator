@@ -5,14 +5,18 @@ module Navigator
 
     def initialize(messenger,x_position,y_position,direction_facing)
       @messenger = messenger
-      @x_position = x_position
-      @y_position = y_position
+      @x_position = x_position.to_i
+      @y_position = y_position.to_i
       @direction_facing = direction_facing
       @directions = ["North","East","South","West"]
     end
         
     def current_position
       @current_position = {"x_position" => @x_position, "y_position" => @y_position, "direction_facing" => @direction_facing}
+    end
+    
+    def position_code
+      #@messenger.puts = "1 2 N" 
     end
     
     def move(instructions)
