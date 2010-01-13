@@ -25,7 +25,7 @@ module Navigator
     end
 
     def check_if_file_exists
-      FileTest.exists?(@instruction_file)
+      File.exists?(@instruction_file)
     end
     
     def read_file
@@ -74,7 +74,21 @@ module Navigator
       @rover.move(rover_input[:instructions])
       @messenger.puts @rover.position_code
     end
-   
+    
+    def valid_plateu_coordinate?(coordinate)
+       coordinate > 0 ? true : false
+    end
+    
+    def valid_plateu_definition?(plateu_definition)
+      width_coordinate = plateu_definition.split.first.to_i
+      length_coordinate = plateu_definition.split.last.to_i
+      if valid_plateu_coordinate?(width_coordinate) && valid_plateu_coordinate?(length_coordinate) 
+        return true
+      else
+        return false
+      end 
+    end
+       
   end
 
 end

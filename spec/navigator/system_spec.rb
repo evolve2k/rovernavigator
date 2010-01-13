@@ -13,7 +13,7 @@ module Navigator
       @system.should respond_to(:instruction_file)      
     end
   
-    context "starting up" do    
+    describe "starting up" do    
       it "should send a welcome message" do
         @messenger.should_receive(:puts).with("--< Welcome to the NASA Mars Rover Navigation Console >--")      
         @system.start
@@ -25,7 +25,7 @@ module Navigator
       end
     end
       
-   context "reading a file" do
+   describe "reading a file" do
    
      it "should have a method to get a file" do
        @system.should respond_to(:get_file)
@@ -69,7 +69,8 @@ module Navigator
    
    end   
    
-   context "initializing the plateu from the input data" do
+   describe "initializing the plateu from the input data" do
+   
      it "should read the plateu definition and create inputs for creating a new plateu" do
        @system.plateu_definition = '5 7'
        @system.should respond_to(:plateu_width_definition)
@@ -86,11 +87,33 @@ module Navigator
        #@plateu.length.should == @system.plateu_length_definition
      end
      
-     it "should read the plateu definition and check that the inputs are valid" do
-#      Valid numbers are positive integers greater than zero
-#      Should store the 
-#      @system.plateu_definition = '7 9'
-#      @system.initialize_plateu
+     describe "should read the plateu definition and check that the inputs are valid" do
+   
+       it "a plateu coordinate of less than 1 should be invalid" do
+         x_definition = 0
+         @system.valid_plateu_coordinate?(x_definition).should be_false
+       end
+       
+       it "should test that plateu definition is valid" do
+         plateu_definition = "1 0"
+         @system.valid_plateu_definition?(plateu_definition).should be_false
+       end
+       
+       it "should show report an error if plateu definition is invalid" do
+         
+       end
+       
+       
+       it "should check if length data is valid" do
+              
+       end
+       
+       it "should check if"
+       
+       it "should check if direction code data is valid" do
+       
+       end 
+        
      end 
 
         
@@ -108,7 +131,10 @@ module Navigator
        #@messenger.puts @rover.position_code
      end
    
-     it "should read lines in the instruction file and create inputs for creating a new rover" 
+     it "should read lines in the instruction file and create inputs for creating a new rover" do
+     end
+     
+      
      it "should read in the start position and break it into key components" 
      it "should read each rovers start position and check that input is valid" 
      it "should read each rovers instructions and check that they are valid"

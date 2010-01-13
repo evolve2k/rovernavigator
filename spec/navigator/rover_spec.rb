@@ -29,6 +29,7 @@ module Navigator
     end
     
     it "should have a current position shortcode eg '1 2 N'" do
+      @rover.should respond_to(:position_code)
       @rover.position_code.should == "#{@rover.x_position} #{@rover.y_position} #{@rover.direction_code.index(@rover.direction_facing)}"
     end
        
@@ -39,13 +40,15 @@ module Navigator
       end
       
       it "should change direction left if sent a command to turn left" do
+        #initial direction is "North"
         desired_direction = "West"
         @rover.move "L"
         @rover.direction_facing.should == desired_direction
         
       end  
 
-      it "should see all directions when rotating left through 360" do
+      it "should see all directions when rotating left in a full circle" do
+        @rover.direction_facing.should == "North"
         @rover.move("L")
         @rover.direction_facing.should == "West"
         @rover.move("L")
@@ -65,7 +68,7 @@ module Navigator
         @rover.direction_facing.should == desired_direction
       end
 
-      it "should see all directions when rotating right through 360" do
+      it "should see all directions when rotating right in a full circle" do
         @rover.direction_facing.should == "North"
         @rover.move("R")
         @rover.direction_facing.should == "East"
@@ -75,6 +78,8 @@ module Navigator
         @rover.direction_facing.should == "West"
         @rover.move("R")
         @rover.direction_facing.should == "North"
+        @rover.move("R")
+        @rover.direction_facing.should == "East"
       end
 
       

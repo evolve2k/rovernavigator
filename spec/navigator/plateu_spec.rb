@@ -18,7 +18,7 @@ module Navigator
     end
     
     it "should update the length when a new length value is set" do
-      @length = mock("length")
+      @length = 10
       @plateu.length = @length
       @plateu.length.should == @length
     end
@@ -32,7 +32,7 @@ module Navigator
     end
     
     it "should update the width when a new width value is set" do
-      @width = mock("width")
+      @width = 10
       @plateu.width = @width
       @plateu.width.should == @width
     end 
