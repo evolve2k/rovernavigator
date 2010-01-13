@@ -61,8 +61,11 @@ module Navigator
        @system.check_if_file_exists.should be_false
      end
      
-     it "should report if the file has been read successfully" do       
-     end 
+     it "should report if the file has been read successfully" do
+       @system.instruction_file = 'instructions/input1.txt'
+       @messenger.should_receive(:puts).with("File read and processed successfully!")
+       @system.read_file
+     end
    
    end   
    
@@ -112,6 +115,11 @@ module Navigator
      it "should create a new rover object and send it instructions to move"    
    end
    
+   context "Error handling" do
+     it "should ensure that plateu height is greater than 0"
+     it "should ensure that plateu width is greater than 0"
+     
+   end
    
   end   
 end

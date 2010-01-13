@@ -5,6 +5,7 @@ module Navigator
     attr_accessor :plateu_definition
     attr_reader :rovers, :plateu_width_definition, :plateu_length_definition
 
+
     def initialize(messenger)
       @messenger = messenger
     end
@@ -20,7 +21,7 @@ module Navigator
     end
     
     def initialize_file
-      @instruction_file = "instructions/input1.txt" #if (@instruction_file.nil? || @instruction_file.empty?)
+      @instruction_file = "instructions/input1.txt" if (@instruction_file.nil? || @instruction_file.empty?)
     end
 
     def check_if_file_exists
@@ -42,12 +43,11 @@ module Navigator
           @messenger.puts " - Instructions: #{rover_definition[:instructions]} \n"  
         end
       end
-      initialize_plateu
+
+      @messenger.puts "File read and processed successfully!"
       @messenger.puts "Output:"      
+      initialize_plateu
       initialize_rovers
-    end
-    
-    def process_instruction_file
     end
     
     def initialize_plateu
@@ -60,16 +60,21 @@ module Navigator
     end
     
     def initialize_rovers
-      @rovers.each do |rover|
-        x_definition = rover[:start_position][0]
-        y_definition = rover[:start_position][1]
-        direction_definition = rover[:start_position][2]
-        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, "North")
-        @rover.move("LMLMLMLMM")
-        @messenger.puts @rover.position_code
+      @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
+      @rovers.each do |rover_input|
+        process_rover_instructions(rover_input)
       end    
     end
 
+    def process_rover_instructions(rover_input)
+      x_definition = rover_input[:start_position][0]
+      y_definition = rover_input[:start_position][1]
+      direction_definition = rover_input[:start_position][2]
+      @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
+      @rover.move(rover_input[:instructions])
+      @messenger.puts @rover.position_code
+    end
+   
   end
 
 end

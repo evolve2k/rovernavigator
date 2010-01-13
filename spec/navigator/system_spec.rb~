@@ -61,8 +61,11 @@ module Navigator
        @system.check_if_file_exists.should be_false
      end
      
-     it "should report if the file has been read successfully" do       
-     end 
+     it "should report if the file has been read successfully" do
+       @system.instruction_file = 'instructions/input1.txt'
+       @messenger.should_receive(:puts).with("File read and processed successfully!")
+       @system.read_file
+     end
    
    end   
    
@@ -101,8 +104,8 @@ module Navigator
      end
      
      it "should print the current rover position code after moving" do
-       @messenger.should_receive(:puts).with("1 2 N")
-       @messenger.puts @rover.position_code
+       #@messenger.should_receive(:puts).with("1 2 N")
+       #@messenger.puts @rover.position_code
      end
    
      it "should read lines in the instruction file and create inputs for creating a new rover" 
@@ -112,6 +115,9 @@ module Navigator
      it "should create a new rover object and send it instructions to move"    
    end
    
+   context "Error handling" do
+     it "should ensure that plateu inputs are valid numbers greater than 0"
+   end
    
   end   
 end

@@ -29,7 +29,7 @@ module Navigator
     end
     
     it "should have a current position shortcode eg '1 2 N'" do
-      @rover.position_code.should == "#{@x_position} #{@y_position} #{direction_code}"
+      @rover.position_code.should == "#{@rover.x_position} #{@rover.y_position} #{@rover.direction_code.index(@rover.direction_facing)}"
     end
        
     context "when I send a move command to a rover" do
