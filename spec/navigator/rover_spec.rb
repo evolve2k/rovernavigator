@@ -107,6 +107,20 @@ module Navigator
           @rover.current_position.should == {"x_position" => 1,"y_position" => 2,"direction_facing" => "West"}
         end
         
+        describe "should check if the next move is invalid before moving" do
+          
+          
+          
+          it "should not move forward if that move would put it outside the grid" do
+            @rover = Rover.new(@messenger,2,2,"West")
+            
+          end
+          
+          it "should check that the next move is not onto an occupied position" do
+            pending
+          end
+        end
+        
       end
     end
     

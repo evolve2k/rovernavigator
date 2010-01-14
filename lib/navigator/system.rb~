@@ -70,20 +70,17 @@ module Navigator
 
     def process_rover(rover_input)
       start_position = rover_input[:start_position]
-      process_rover_start_position(start_position)
-      instructions_definition = rover_input[:instructions]
-      @rover.move(instructions_definition)
-      @messenger.puts @rover.position_code
-    end
-    
-    def process_rover_start_position(start_position)
       if valid_rover_position?(start_position)
         x_definition = start_position[0]
         y_definition = start_position[1]
         direction_definition = start_position[2]
         @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
+        instructions_definition = rover_input[:instructions]
+        #process_rover_start_position(start_position)
+        @rover.move(instructions_definition)
+        @messenger.puts @rover.position_code
       else
-        @messenger.puts "Rover definition is invalid. No moves will be processed for this rover"
+        @messenger.puts "Rover start position is invalid. No moves will be processed for this rover"
       end
     end
     
@@ -110,7 +107,6 @@ module Navigator
     end
     
     def valid_rover_position?(position_code)
-      #position_data = position_code.split
       x_coordinate = position_code[0].to_i
       y_coordinate = position_code[1].to_i
       direction_code = position_code[2]
@@ -122,6 +118,16 @@ module Navigator
          return false
       end
     end 
+    
+    def valid_instruction?(instruction)
+      if instruction == "L" || instruction == "M" || instruction == "R" then
+        true
+      else
+        false
+      end
+    end
+    
+    
     
   end
 end
