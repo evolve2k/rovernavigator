@@ -27,6 +27,9 @@ module Navigator
           when "L" then self.turn_left
           when "R" then self.turn_right
           when "M" then self.move_forward
+          else 
+            @messenger.puts "Warning: Rover has received an invalid instruction. Rover stopped. No further move instructions have been processed." #: System has received an invalid instruction '#{instruction}', exiting system. No further move instructions will be processed." 
+            break #stops processing of instructions if an unexpected instruction is received.
         end
       end      
     end

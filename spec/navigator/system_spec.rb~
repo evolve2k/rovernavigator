@@ -92,28 +92,22 @@ module Navigator
        it "a plateu coordinate of less than 1 should be invalid" do
          x_definition = 0
          @system.valid_plateu_coordinate?(x_definition).should be_false
+         x_definition = 1
+         @system.valid_plateu_coordinate?(x_definition).should be_true
        end
        
-       it "should test that plateu definition is valid" do
+       it "should test that plateu definition (width & length) is valid" do
          plateu_definition = "1 0"
          @system.valid_plateu_definition?(plateu_definition).should be_false
+         plateu_definition = "0 1"
+         @system.valid_plateu_definition?(plateu_definition).should be_false
+         plateu_definition = "1 1"
+         @system.valid_plateu_definition?(plateu_definition).should be_true
        end
        
-       it "show report an error if plateu definition is invalid" do
-       
+       it "should report an error if plateu definition is invalid" do
+         pending
        end
-       
-       
-       it "should check if length data is valid" do
-              
-       end
-       
-       it "should check if"
-       
-       it "should check if direction code data is valid" do
-       
-       end 
-        
      end 
 
         

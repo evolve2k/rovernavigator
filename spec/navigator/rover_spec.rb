@@ -6,6 +6,7 @@ module Navigator
 
     before(:each) do
       @rover = Rover.new(@messenger,1,2,"North")
+      @messenger = mock("messenger").as_null_object
     end
      
     it "should have a x position" do 
@@ -119,6 +120,21 @@ module Navigator
        @rover = Rover.new(@messenger,0,0,"North")
        @rover.move("MMMMM") #LMLMLMLMM
        @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
+    end
+    
+    describe "when the rover receives invalid instructions" do
+      it "should stop processing further instructions if it receives an invalid instruction" do
+        @rover = Rover.new(@messenger,0,0,"North")
+        @rover.move("MMRMMORMMM") #ORMMM O is an invalid character
+        @rover.current_position.should == {"x_position" => 2,"y_position" => 2,"direction_facing" => "East"}   
+      end
+      
+      it "should report that it has stopped processing" do
+        @rover = Rover.new(@messenger,0,0,"North")        
+        @messenger.should_receive(:puts).with("Warning: Rover has received an invalid instruction. Rover stopped. No further move instructions have been processed.")  
+        @rover.move("MMRMMORMMM") #ORMMM O is an invalid character         
+      end  
+    
     end
                
   end

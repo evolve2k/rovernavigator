@@ -43,7 +43,6 @@ module Navigator
           @messenger.puts " - Instructions: #{rover_definition[:instructions]} \n"  
         end
       end
-
       @messenger.puts "File read and processed successfully!"
       @messenger.puts "Output:"      
       initialize_plateu

@@ -36,3 +36,8 @@ end
 Then /^the rover should be facing "([^\"]*)"$/ do |direction_facing|
   @rover.direction_facing.should == direction_facing
 end
+
+Then /^report to the screen "([^\"]*)"$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
