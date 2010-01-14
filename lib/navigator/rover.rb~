@@ -22,13 +22,13 @@ module Navigator
     end
     
     def move(instructions)
-      instructions.chars.to_a.each do |instruction|
+      instructions.chars.each do |instruction|
         case instruction
           when "L" then self.turn_left
           when "R" then self.turn_right
           when "M" then self.move_forward
           else 
-            @messenger.puts "Warning: System has received an invalid instruction. Rover stopped. No further move instructions have been processed." #: System has received an invalid instruction '#{instruction}', exiting system. No further move instructions will be processed." 
+            @messenger.puts "Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move, at this position:"
             break #stops processing of instructions if an unexpected instruction is received.
         end
       end      

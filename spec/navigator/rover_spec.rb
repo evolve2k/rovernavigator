@@ -131,7 +131,7 @@ module Navigator
       
       it "should report that it has stopped processing" do
         @rover = Rover.new(@messenger,0,0,"North")        
-        @messenger.should_receive(:puts).with("Warning: Rover has received an invalid instruction. Rover stopped. No further move instructions have been processed.")  
+        @messenger.should_receive(:puts).with("Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move, at this position:")  
         @rover.move("MMRMMORMMM") #ORMMM O is an invalid character         
       end  
     

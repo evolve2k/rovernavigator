@@ -75,14 +75,14 @@ module Navigator
        @system.plateu_definition = '5 7'
        @system.should respond_to(:plateu_width_definition)
        @system.should respond_to(:plateu_length_definition)
-       @system.initialize_plateu
+       @system.initialize_plateu(@system.plateu_definition)
        @system.plateu_width_definition.should == 5
        @system.plateu_length_definition.should == 7
      end 
          
      it "should create a new plateu using the newly defined plateu inputs" do
        @system.plateu_definition = '5 7'
-       @system.initialize_plateu       
+       @system.initialize_plateu(@system.plateu_definition)       
        #@plateu.width.should == @system.plateu_width_definition
        #@plateu.length.should == @system.plateu_length_definition
      end
@@ -107,6 +107,8 @@ module Navigator
        
        it "should report an error if plateu definition is invalid" do
          pending
+         #@system.initialize_file
+        #@messenger.should_receive(:puts).with("Plateu definition is invalid. Exiting system. Please change plateu definition and restart system")
        end
      end 
 
