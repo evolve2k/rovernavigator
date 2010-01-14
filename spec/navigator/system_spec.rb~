@@ -63,7 +63,7 @@ module Navigator
      
      it "should report if the file has been read successfully" do
        @system.instruction_file = 'instructions/input1.txt'
-       @messenger.should_receive(:puts).with("File read and processed successfully!")
+       @messenger.should_receive(:puts).with("File read successfully")
        @system.read_file
      end
    
@@ -106,9 +106,10 @@ module Navigator
        end
        
        it "should report an error if plateu definition is invalid" do
-         pending
-         #@system.initialize_file
-        #@messenger.should_receive(:puts).with("Plateu definition is invalid. Exiting system. Please change plateu definition and restart system")
+        @messenger.should_receive(:puts).with("Plateu definition is invalid. Exiting system. Please change plateu definition and restart system")
+        plateu_definition = "0 0"
+        @system.initialize_plateu(plateu_definition)
+        
        end
      end 
 
@@ -133,18 +134,47 @@ module Navigator
      it "should read in the start position and break it into key components" 
      it "should read each rovers start position and check that input is valid"
      
-     it "should check if rover x co-ordinate is valid" do
-      pending  
+     it "should check if rover x co-ordinate is valid" do  
+       x_coordinate = -1      
+       @system.valid_rover_coordinate?(x_coordinate).should be_false
+       x_coordinate = 0 
+       @system.valid_rover_coordinate?(x_coordinate).should be_true
      end
        
      it "should check if rover y co-ordinate is valid" do
-       pending
+       y_coordinate = -1      
+       @system.valid_rover_coordinate?(y_coordinate).should be_false
+       y_coordinate = 0 
+       @system.valid_rover_coordinate?(y_coordinate).should be_true
      end
        
-       
      it "should check if direction code data is valid" do
-       pending
-     end 
+       direction_code = "N" #representing north
+       @system.valid_direction_code?(direction_code).should be_true
+       direction_code = "X" #representing an invalid 'Direction'
+       @system.valid_direction_code?(direction_code).should be_false
+     end
+      
+      it "should check a rover start position definition and see if it is valid" do
+        start_position = [0,0,"N"]
+        @system.valid_rover_position?(start_position).should be_true
+        start_position = [-1, 0, "N"]
+        @system.valid_rover_position?(start_position).should be_false
+        start_position = [0, -1, "N"]
+        @system.valid_rover_position?(start_position).should be_false
+        start_position = [0, 0, "X"]
+        @system.valid_rover_position?(start_position).should be_false
+      end
+      
+      it "should report an error if rover start position is invalid" do
+        @messenger.should_receive(:puts).with("Rover definition is invalid. No moves will be processed for this rover")
+        start_position = "-1 -1 X"
+        @system.process_rover_start_position(start_position)
+      end
+      
+      it "should not attempt to move the rover is the start position is invalid" do
+        pending
+      end
       
      it "should read each rovers instructions and check that they are valid"
      it "should create a new rover object and send it instructions to move"    

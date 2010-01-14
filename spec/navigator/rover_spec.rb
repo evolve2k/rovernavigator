@@ -49,7 +49,6 @@ module Navigator
       end  
 
       it "should see all directions when rotating left in a full circle" do
-        @rover.direction_facing.should == "North"
         @rover.move("L")
         @rover.direction_facing.should == "West"
         @rover.move("L")
@@ -58,8 +57,6 @@ module Navigator
         @rover.direction_facing.should == "East"
         @rover.move("L")
         @rover.direction_facing.should == "North"
-        @rover.move("L")
-        @rover.direction_facing.should == "West"
       end
 
       
@@ -70,7 +67,6 @@ module Navigator
       end
 
       it "should see all directions when rotating right in a full circle" do
-        @rover.direction_facing.should == "North"
         @rover.move("R")
         @rover.direction_facing.should == "East"
         @rover.move("R")
@@ -79,8 +75,6 @@ module Navigator
         @rover.direction_facing.should == "West"
         @rover.move("R")
         @rover.direction_facing.should == "North"
-        @rover.move("R")
-        @rover.direction_facing.should == "East"
       end
 
       

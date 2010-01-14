@@ -8,6 +8,7 @@ module Navigator
 
     def initialize(messenger)
       @messenger = messenger
+      @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
     end
 
     def start
@@ -43,34 +44,47 @@ module Navigator
           @messenger.puts " - Instructions: #{rover_definition[:instructions]} \n"  
         end
       end
-      @messenger.puts "File read and processed successfully!"
+      @messenger.puts "File read successfully"
       @messenger.puts "Output:"      
       initialize_plateu(@plateu_definition)
-      initialize_rovers
+      initialize_rovers(@rovers)
     end
     
     def initialize_plateu(plateu_definition)
-      @plateu_width_definition = plateu_definition.split.first.to_i
-      @plateu_length_definition = plateu_definition.split.last.to_i
-      @plateu = Navigator::Plateu.new(@messenger)
-      @plateu.width = @plateu_width_definition
-      @plateu.length = @plateu_length_definition
+      if valid_plateu_definition?(plateu_definition)
+        @plateu_width_definition = plateu_definition.split.first.to_i
+        @plateu_length_definition = plateu_definition.split.last.to_i
+        @plateu = Navigator::Plateu.new(@messenger)
+        @plateu.width = @plateu_width_definition
+        @plateu.length = @plateu_length_definition
+      else
+        @messenger.puts "Plateu definition is invalid. Exiting system. Please change plateu definition and restart system"
+      end
     end
     
-    def initialize_rovers
-      @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
-      @rovers.each do |rover_input|
-        process_rover_instructions(rover_input)
+    def initialize_rovers(rovers)
+      rovers.each do |rover_input|
+        process_rover(rover_input)
       end    
     end
 
-    def process_rover_instructions(rover_input)
-      x_definition = rover_input[:start_position][0]
-      y_definition = rover_input[:start_position][1]
-      direction_definition = rover_input[:start_position][2]
-      @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
-      @rover.move(rover_input[:instructions])
+    def process_rover(rover_input)
+      start_position = rover_input[:start_position]
+      process_rover_start_position(start_position)
+      instructions_definition = rover_input[:instructions]
+      @rover.move(instructions_definition)
       @messenger.puts @rover.position_code
+    end
+    
+    def process_rover_start_position(start_position)
+      if valid_rover_position?(start_position)
+        x_definition = start_position[0]
+        y_definition = start_position[1]
+        direction_definition = start_position[2]
+        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
+      else
+        @messenger.puts "Rover definition is invalid. No moves will be processed for this rover"
+      end
     end
     
     def valid_plateu_coordinate?(coordinate)
@@ -86,7 +100,28 @@ module Navigator
         return false
       end 
     end
-       
+    
+    def valid_rover_coordinate?(coordinate)
+      coordinate < 0 ? false : true
+    end
+    
+    def valid_direction_code?(direction_code)
+      @direction_code.has_key?(direction_code) ? true : false
+    end
+    
+    def valid_rover_position?(position_code)
+      #position_data = position_code.split
+      x_coordinate = position_code[0].to_i
+      y_coordinate = position_code[1].to_i
+      direction_code = position_code[2]
+      if valid_rover_coordinate?(x_coordinate) && 
+         valid_rover_coordinate?(y_coordinate) && 
+         valid_direction_code?(direction_code) then
+         return true
+      else 
+         return false
+      end
+    end 
+    
   end
-
 end

@@ -49,7 +49,6 @@ module Navigator
       end  
 
       it "should see all directions when rotating left in a full circle" do
-        @rover.direction_facing.should == "North"
         @rover.move("L")
         @rover.direction_facing.should == "West"
         @rover.move("L")
@@ -58,8 +57,6 @@ module Navigator
         @rover.direction_facing.should == "East"
         @rover.move("L")
         @rover.direction_facing.should == "North"
-        @rover.move("L")
-        @rover.direction_facing.should == "West"
       end
 
       
@@ -70,7 +67,6 @@ module Navigator
       end
 
       it "should see all directions when rotating right in a full circle" do
-        @rover.direction_facing.should == "North"
         @rover.move("R")
         @rover.direction_facing.should == "East"
         @rover.move("R")
@@ -79,8 +75,6 @@ module Navigator
         @rover.direction_facing.should == "West"
         @rover.move("R")
         @rover.direction_facing.should == "North"
-        @rover.move("R")
-        @rover.direction_facing.should == "East"
       end
 
       
@@ -131,7 +125,7 @@ module Navigator
       
       it "should report that it has stopped processing" do
         @rover = Rover.new(@messenger,0,0,"North")        
-        @messenger.should_receive(:puts).with("Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move:")  
+        @messenger.should_receive(:puts).with("Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move, at this position:")  
         @rover.move("MMRMMORMMM") #ORMMM O is an invalid character         
       end  
     
