@@ -74,7 +74,7 @@ module Navigator
         x_definition = start_position[0]
         y_definition = start_position[1]
         direction_definition = start_position[2]
-        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
+        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition],@plateu)
         @rover.plateu = @plateu
         instructions_definition = rover_input[:instructions]
         #process_rover_start_position(start_position)

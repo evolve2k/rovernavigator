@@ -5,8 +5,9 @@ module Navigator
   describe Rover do
 
     before(:each) do
-      @rover = Rover.new(@messenger,1,2,"North")
+      @rover = Rover.new(@messenger,1,2,"North",@plateu)
       @messenger = mock("messenger").as_null_object
+      @plateu = mock("plateu")
     end
      
     it "should have a x position" do 
@@ -88,25 +89,25 @@ module Navigator
       context "in the direction it is current facing" do
   
         it "should move north if facing north" do
-          @rover = Rover.new(@messenger,2,2,"North")
+          @rover = Rover.new(@messenger,2,2,"North", @plateu)
           @rover.move("M")
           @rover.current_position.should == {"x_position" => 2,"y_position" => 3,"direction_facing" => "North"}          
         end
     
         it "should move south if facing south" do
-          @rover = Rover.new(@messenger,2,2,"South")
+          @rover = Rover.new(@messenger,2,2,"South", @plateu)
           @rover.move("M")
           @rover.current_position.should == {"x_position" => 2,"y_position" => 1,"direction_facing" => "South"}
         end
     
         it "should move east if facing east" do
-          @rover = Rover.new(@messenger,2,2,"East")
+          @rover = Rover.new(@messenger,2,2,"East", @plateu)
           @rover.move("M")
           @rover.current_position.should == {"x_position" => 3,"y_position" => 2,"direction_facing" => "East"}
         end
         
         it "should move west if facing west" do
-          @rover = Rover.new(@messenger,2,2,"West")
+          @rover = Rover.new(@messenger,2,2,"West", @plateu)
           @rover.move("M")
           @rover.current_position.should == {"x_position" => 1,"y_position" => 2,"direction_facing" => "West"}
         end
@@ -133,20 +134,20 @@ module Navigator
     end
     
     it "should be able to accept and process a string of instructions" do
-       @rover = Rover.new(@messenger,0,0,"North")
+       @rover = Rover.new(@messenger,0,0,"North",@plateu)
        @rover.move("MMMMM") #LMLMLMLMM
        @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
     end
     
     describe "when the rover receives invalid instructions" do
       it "should stop processing further instructions if it receives an invalid instruction" do
-        @rover = Rover.new(@messenger,0,0,"North")
+        @rover = Rover.new(@messenger,0,0,"North", @plateu)
         @rover.move("MMRMMORMMM") #ORMMM O is an invalid character
         @rover.current_position.should == {"x_position" => 2,"y_position" => 2,"direction_facing" => "East"}   
       end
       
       it "should report that it has stopped processing" do
-        @rover = Rover.new(@messenger,0,0,"North")        
+        @rover = Rover.new(@messenger,0,0,"North", @plateu)        
         @messenger.should_receive(:puts).with("Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move, at this position:")  
         @rover.move("MMRMMORMMM") #ORMMM O is an invalid character         
       end  

@@ -4,7 +4,7 @@ module Navigator
     attr_reader :x_position, :y_position, :direction_facing, :direction_code
     attr_accessor :plateu
 
-    def initialize(messenger,x_position,y_position,direction_facing,plateu)
+    def initialize(messenger,x_position,y_position,direction_facing)
       @messenger = messenger
       @x_position = x_position.to_i
       @y_position = y_position.to_i
