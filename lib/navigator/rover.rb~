@@ -2,8 +2,9 @@ module Navigator
   class Rover
   
     attr_reader :x_position, :y_position, :direction_facing, :direction_code
+    attr_accessor :plateu
 
-    def initialize(messenger,x_position,y_position,direction_facing)
+    def initialize(messenger,x_position,y_position,direction_facing,plateu)
       @messenger = messenger
       @x_position = x_position.to_i
       @y_position = y_position.to_i
@@ -11,7 +12,7 @@ module Navigator
       @directions = ["North","East","South","West"]
       @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
     end
-        
+    
     def current_position
       @current_position = {"x_position" => @x_position, "y_position" => @y_position, "direction_facing" => @direction_facing}
     end
@@ -51,11 +52,16 @@ module Navigator
    
     def move_forward
       #Makes the Rover move forward in the direction the rover is currently facing
+           
       case direction_facing
-        when "North" then @y_position = @y_position + 1
-        when "South" then @y_position = @y_position - 1            
-        when "East"  then @x_position = @x_position + 1
-        when "West"  then @x_position = @x_position - 1            
+        when "North" then 
+          @y_position = @y_position + 1
+        when "South" then 
+          @y_position = @y_position - 1            
+        when "East"  then 
+          @x_position = @x_position + 1
+        when "West"  then 
+          @x_position = @x_position - 1            
       end    
     end 
             

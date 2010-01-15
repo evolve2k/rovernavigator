@@ -29,6 +29,10 @@ module Navigator
       @current_position.should == { "x_position" => 1, "y_position" => 2, "direction_facing" => "North"}
     end
     
+    it "should be able to know details of the plateu it is on" do
+      @rover.should respond_to(:plateu)
+    end 
+    
     it "should have a current position shortcode eg '1 2 N'" do
       @rover.should respond_to(:position_code)
       @rover.position_code.should == "#{@rover.x_position} #{@rover.y_position} #{@rover.direction_code.index(@rover.direction_facing)}"
@@ -109,18 +113,14 @@ module Navigator
         
         describe "should check if the next move is invalid before moving" do
           
-          it "should have know the length of the plateu it's on" do
-            @rover.should respond_to(:plateu_lenth)
-          end
-          
-          it "should have know the width of the plateu it's on" do
-            @rover.should respond_to(:plateu_width)
-          end
-          
-          
           it "should not move forward if that move would put it outside the grid" do
-            @rover = Rover.new(@messenger,2,2,"West")
-            
+            @rover = Rover.new(@messenger,5,5,"North")
+            plateu = Plateu.new(@messenger)
+            plateu.width = 5
+            plateu.length = 5
+            @rover.plateu = plateu
+            @rover.move("M")
+            @rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "North"}
           end
           
           it "should check that the next move is not onto an occupied position" do

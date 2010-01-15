@@ -124,8 +124,8 @@ module Navigator
      end
      
      it "should print the current rover position code after moving" do
-       #@messenger.should_receive(:puts).with("1 2 N")
-       #@messenger.puts @rover.position_code
+       @messenger.should_receive(:puts).with("1 2 N")
+       @messenger.puts @rover.position_code
      end
    
      describe "to ensure each rovers start position is valid" do
@@ -169,5 +169,6 @@ module Navigator
         end
      end
    end
+   
   end   
 end

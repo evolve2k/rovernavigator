@@ -75,6 +75,7 @@ module Navigator
         y_definition = start_position[1]
         direction_definition = start_position[2]
         @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition])
+        @rover.plateu = @plateu
         instructions_definition = rover_input[:instructions]
         #process_rover_start_position(start_position)
         @rover.move(instructions_definition)
@@ -91,10 +92,11 @@ module Navigator
     def valid_plateu_definition?(plateu_definition)
       width_coordinate = plateu_definition.split.first.to_i
       length_coordinate = plateu_definition.split.last.to_i
-      if valid_plateu_coordinate?(width_coordinate) && valid_plateu_coordinate?(length_coordinate) 
-        return true
+      if valid_plateu_coordinate?(width_coordinate) && 
+         valid_plateu_coordinate?(length_coordinate) then
+         return true
       else
-        return false
+         return false
       end 
     end
     
