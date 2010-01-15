@@ -1,7 +1,7 @@
 module Navigator
   class Plateu
 
-    attr_accessor :length, :width 
+    attr_accessor :length, :width
    
     def initialize(messenger)
       @messenger = messenger

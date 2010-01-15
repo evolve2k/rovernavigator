@@ -16,12 +16,12 @@ I want to be able to send commands so I can navigate a rover around the plateu
    When I give the rover the instructions "LMLMLMLMM"
    Then the rover should move until it reaches the position 1,3 
 
- Scenario: Provide the system with invalid instructions
+ Scenario: Provide the system with invalid user instructions
    Given I have a plateu 
    And the plateu is 5 units long by 5 units wide
    And a I have a rover at position 0,0 facing "North"
    When I give the rover the instructions "MMMRMMM0MMR"
-   Then the rover should move until it reaches the position 2,2 
-   And report to the screen "Warning: System has received an invalid instruction '#{instruction}', exiting system. No further move instructions will be processed."
+   Then the rover should move until it reaches the position 3,3
+   And I should see "Warning: The following Rover received an invalid user instruction and for saftey stopped after the last valid move, at this position:"
    
    

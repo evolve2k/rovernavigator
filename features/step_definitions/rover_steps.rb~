@@ -1,6 +1,6 @@
 Given /^I have a plateu$/ do
   @messenger = StringIO.new
-  plateu = Navigator::Plateu.new(@messenger)
+  @plateu = Navigator::Plateu.new(@messenger)
 end
 
 Given /^the plateu is (\d*) units long by (\d*) units wide$/ do |length,width|
@@ -15,17 +15,16 @@ Given /^the plateu is (\d*) units long by (\d*) units wide$/ do |length,width|
 end
 
 Given /^a I have a rover at position (\d*),(\d*) facing "([^\"]*)"$/ do |x,y,direction_facing|
-  rover = Navigator::Rover.new(@messenger,x,y,direction_facing)
-  x_position = x.to_i
-  y_position = y.to_i
-  @current_position = rover.current_position #returns hash of x,y,direction_facing
-  @current_position.should == {"x_position" => x_position, "y_position" => y_position, "direction_facing" => direction_facing}  #Should equal a hash/array of the three inputs
+  @rover = Navigator::Rover.new(@messenger,x,y,direction_facing,@plateu)
+  @x_position = x.to_i
+  @y_position = y.to_i
+  @current_position = @rover.current_position #returns hash of x,y,direction_facing
+  @current_position.should == {"x_position" => @x_position, "y_position" => @y_position, "direction_facing" => direction_facing}  #Should equal a hash/array of the three inputs
 end
 
-
 When /^I give the rover the instructions "([^\"]*)"$/ do |instructions|
-  @rover = Navigator::Rover.new(@messenger,1,2,"North")  
-  @rover.move(instructions)  
+  #@rover = Navigator::Rover.new(@messenger,@x_position,@y_position,"North",@plateu)  
+  @rover.move(instructions)
 end
 
 Then /^the rover should move until it reaches the position (\d*),(\d*)$/ do |x,y|
@@ -35,4 +34,8 @@ end
 
 Then /^the rover should be facing "([^\"]*)"$/ do |direction_facing|
   @rover.direction_facing.should == direction_facing
+end
+
+Then /^I should see "([^\"]*)"$/ do |message|
+  @messenger.string.split("\n").should include(message)
 end

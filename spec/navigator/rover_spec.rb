@@ -5,11 +5,11 @@ module Navigator
   describe Rover do
 
     before(:each) do
-      @rover = Rover.new(@messenger,1,2,"North",@plateu)
       @messenger = mock("messenger").as_null_object
       @plateu = mock("plateu")
       @plateu.stub(:length).and_return(5)
       @plateu.stub(:width).and_return(5)
+      @rover = Rover.new(@messenger,1,2,"North",@plateu)
     end
      
     it "should have a x position" do 
@@ -149,14 +149,27 @@ module Navigator
             end
            
              it "should stop where it is after an attempt to move outside the plateu boundry" do
-               pending
+               @rover = Rover.new(@messenger,3,3,"North",@plateu)
+               @rover.move("MMMRMMM") #directions will send the rover off the north boundry
+               @rover.current_position.should == {"x_position" => 3,"y_position" => 5,"direction_facing" => "North"}
+             end
+             
+             it "should have a method to deactivate the rover from taking further action" do
+               @rover.should respond_to(:deactivate?)
              end
            
           end
           
-          it "should check that the next move is not onto an occupied position" do
-            pending
-          end
+          
+          describe "checking that the next move is not onto an occupied position" do
+            
+            
+            
+                   
+            it "should check that the next move is not onto an occupied position" do
+              @rover.move("MMM")
+            end
+          end        
         end
         
       end

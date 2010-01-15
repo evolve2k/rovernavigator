@@ -4,8 +4,7 @@ module Navigator
     attr_accessor :instruction_file
     attr_accessor :plateu_definition
     attr_reader :rovers, :plateu_width_definition, :plateu_length_definition
-
-
+    
     def initialize(messenger)
       @messenger = messenger
       @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
@@ -76,7 +75,6 @@ module Navigator
         direction_definition = start_position[2]
         @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition],@plateu)
         instructions_definition = rover_input[:instructions]
-        #process_rover_start_position(start_position)
         @rover.move(instructions_definition)
         @messenger.puts @rover.position_code
       else

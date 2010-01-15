@@ -105,10 +105,6 @@ module Navigator
          @system.valid_plateu_definition?(plateu_definition).should be_true
        end
        
-       it "should stop moving the rover once it receives an invalid instruction" do
-         pending
-       end
-       
        it "should report an error if plateu definition is invalid" do
         @messenger.should_receive(:puts).with("Plateu definition is invalid. Exiting system. Please change plateu definition and restart system")
         plateu_definition = "0 0"
@@ -129,6 +125,15 @@ module Navigator
      it "should print the current rover position code after moving" do
        #@messenger.should_receive(:puts).with("1 2 N")
        #@messenger.puts @rover.position_code
+     end
+     
+     it "should record the rovers final position as occupied in the plateu" do
+       pending
+       #rover_input = {:start_position => "0 0 N",:instructions => "MMM"}
+       #position_code = "0 3 N"
+       #process_rover(rover_input)
+       #plateu = Plateu.new(@messenger)
+       #plateu.occupied_positions.to_a.last.should == position_code
      end
    
      describe "to ensure each rovers start position is valid" do

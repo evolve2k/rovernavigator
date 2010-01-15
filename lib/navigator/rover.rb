@@ -2,7 +2,7 @@ module Navigator
   class Rover
   
     attr_reader :x_position, :y_position, :direction_facing, :direction_code
-    attr_accessor :plateu
+    attr_accessor :plateu 
 
     def initialize(messenger,x_position,y_position,direction_facing,plateu)
       @messenger = messenger
@@ -11,7 +11,12 @@ module Navigator
       @direction_facing = direction_facing
       @plateu = plateu
       @directions = ["North","East","South","West"]
-      @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
+      @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"} 
+      @deactivate = false
+    end
+    
+    def deactivate?
+      @deactivate
     end
     
     def current_position
@@ -25,14 +30,18 @@ module Navigator
     
     def move(instructions)
       instructions.chars.each do |instruction|
-        case instruction
-          when "L" then self.turn_left
-          when "R" then self.turn_right
-          when "M" then self.move_forward
-          else 
-            @messenger.puts "Warning: The following Rover received an invalid user instruction and for saftey stopped after the last valid move, at this position:"
-            break #stops processing of instructions if an unexpected instruction is received.
-        end
+        if deactivate? 
+          break 
+        else
+          case instruction
+            when "L" then self.turn_left
+            when "R" then self.turn_right
+            when "M" then self.move_forward
+            else 
+              @messenger.puts "Warning: The following Rover received an invalid user instruction and for saftey stopped after the last valid move, at this position:"
+              break #stops processing of instructions if an unexpected instruction is received.
+          end
+        end  
       end      
     end
 
@@ -53,14 +62,12 @@ module Navigator
    
     def move_forward
       #Makes the Rover move forward in the direction the rover is currently facing
-      
        boundry_error_message = "The following Rover attempted to fall off the plateu! Rover deactivated in current position"
-           
       case direction_facing
-      
         when "North" then 
           if @y_position == @plateu.length 
             @messenger.puts boundry_error_message
+            @deactivate = true
           else
             @y_position = @y_position + 1
           end  
@@ -86,7 +93,6 @@ module Navigator
             @x_position = @x_position - 1
           end
       end    
-      
     end 
             
   end

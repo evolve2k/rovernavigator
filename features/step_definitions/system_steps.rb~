@@ -19,6 +19,7 @@ end
 
 When /^I provide a instruction file called '([^\"]*)'$/ do |filename|
   @messenger = StringIO.new
+  @filename = filename
   system = Navigator::System.new(@messenger)
   system.start
   system.get_file
@@ -36,12 +37,11 @@ Then /^the system should process the file and move the rover at start position '
   @messenger = StringIO.new
   system = Navigator::System.new(@messenger)
   system.start
-  system.get_file
+  system.instruction_file = @filename
+  system.initialize_file
   system.read_file
-  system.initialize_plateu
-  system.initialize_rovers
-  plateu = Navigator::Plateu.new(@messenger)
-  rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
+  #plateu = Navigator::Plateu.new(@messenger)
+  #rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
   
 end
 
@@ -49,9 +49,9 @@ Then /^display the final position of the rover to the screen as '([^\"]*)'$/ do 
   @messenger = StringIO.new
   system = Navigator::System.new(@messenger)
   system.start
-  system.get_file
+  system.initialize_file
   rover_definition = {:start_position => '1 2 N', :instructions => "LMLMLMLMM"}
-  process_rover_instructions(rover_definition).should == final_position
+  system.process_rover(rover_definition).should == final_position
   #rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
   #rover.position_code.should == final_position
 

@@ -36,5 +36,9 @@ module Navigator
       @plateu.width = @width
       @plateu.width.should == @width
     end 
+    
+    it "should have a list of occupied positions" do
+      @plateu.should respond_to(:occupied_positions)
+    end 
   end
 end
