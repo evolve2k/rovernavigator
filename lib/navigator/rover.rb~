@@ -4,11 +4,12 @@ module Navigator
     attr_reader :x_position, :y_position, :direction_facing, :direction_code
     attr_accessor :plateu
 
-    def initialize(messenger,x_position,y_position,direction_facing)
+    def initialize(messenger,x_position,y_position,direction_facing,plateu)
       @messenger = messenger
       @x_position = x_position.to_i
       @y_position = y_position.to_i
       @direction_facing = direction_facing
+      @plateu = plateu
       @directions = ["North","East","South","West"]
       @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
     end
@@ -55,11 +56,19 @@ module Navigator
            
       case direction_facing
         when "North" then 
-          @y_position = @y_position + 1
+          unless @y_position == @plateu.length 
+            @y_position = @y_position + 1
+          end  
+          
         when "South" then 
-          @y_position = @y_position - 1            
-        when "East"  then 
-          @x_position = @x_position + 1
+          unless @y_position == 0 
+            @y_position = @y_position - 1
+          end
+          
+        when "East" then 
+          unless @x_position == @plateu.width
+            @x_position = @x_position + 1
+          end
         when "West"  then 
           @x_position = @x_position - 1            
       end    

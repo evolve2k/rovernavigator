@@ -8,6 +8,8 @@ module Navigator
       @rover = Rover.new(@messenger,1,2,"North",@plateu)
       @messenger = mock("messenger").as_null_object
       @plateu = mock("plateu")
+      @plateu.stub(:length).and_return(5)
+      @plateu.stub(:width).and_return(5)
     end
      
     it "should have a x position" do 
@@ -114,15 +116,32 @@ module Navigator
         
         describe "should check if the next move is invalid before moving" do
           
-          it "should not move forward if that move would put it outside the grid" do
-            pending
-            #@rover = Rover.new(@messenger,5,5,"North")
-            #plateu = Plateu.new(@messenger)
-            #plateu.width = 5
-            #plateu.length = 5
-            #@rover.plateu = plateu
-            #@rover.move("M")
-            #@rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "North"}
+          describe "should not move forward if that move would put it outside the grid" do
+          
+          it "should not move north if that move would put it outside the grid" do
+            @rover = Rover.new(@messenger,5,5,"North",@plateu)
+            @rover.move("M")
+            @rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "North"}
+          end
+          
+          it "should not move south if that move would put it outside the grid" do
+            @rover = Rover.new(@messenger,0,0,"South",@plateu)
+            @rover.move("M")
+            @rover.current_position.should == {"x_position" => 0,"y_position" => 0,"direction_facing" => "South"}
+          end
+          
+          it "should not move east if that move would put it outside the grid" do
+            @rover = Rover.new(@messenger,5,5,"East",@plateu)
+            @rover.move("M")
+            @rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "East"}
+          end
+          
+          it "should not move west if that move would put it outside the grid" do
+            @rover = Rover.new(@messenger,0,0,"West",@plateu)
+            @rover.move("M")
+            @rover.current_position.should == {"x_position" => 0,"y_position" => 0,"direction_facing" => "West"}
+          end
+          
           end
           
           it "should check that the next move is not onto an occupied position" do

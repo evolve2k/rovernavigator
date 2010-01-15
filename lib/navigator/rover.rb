@@ -9,6 +9,7 @@ module Navigator
       @x_position = x_position.to_i
       @y_position = y_position.to_i
       @direction_facing = direction_facing
+      @plateu = plateu
       @directions = ["North","East","South","West"]
       @direction_code = {"N" => "North", "E" => "East", "S" => "South", "W" => "West"}
     end
@@ -55,13 +56,24 @@ module Navigator
            
       case direction_facing
         when "North" then 
-          @y_position = @y_position + 1
+          unless @y_position == @plateu.length 
+            @y_position = @y_position + 1
+          end  
+          
         when "South" then 
-          @y_position = @y_position - 1            
-        when "East"  then 
-          @x_position = @x_position + 1
-        when "West"  then 
-          @x_position = @x_position - 1            
+          unless @y_position == 0 
+            @y_position = @y_position - 1
+          end
+          
+        when "East" then 
+          unless @x_position == @plateu.width
+            @x_position = @x_position + 1
+          end
+          
+        when "West" then 
+          unless @x_position == 0
+            @x_position = @x_position - 1
+          end
       end    
     end 
             
