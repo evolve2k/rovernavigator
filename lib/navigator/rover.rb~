@@ -30,7 +30,7 @@ module Navigator
           when "R" then self.turn_right
           when "M" then self.move_forward
           else 
-            @messenger.puts "Warning: The following Rover received an invalid instruction and for saftey stopped after the last valid move, at this position:"
+            @messenger.puts "Warning: The following Rover received an invalid user instruction and for saftey stopped after the last valid move, at this position:"
             break #stops processing of instructions if an unexpected instruction is received.
         end
       end      
@@ -53,25 +53,40 @@ module Navigator
    
     def move_forward
       #Makes the Rover move forward in the direction the rover is currently facing
+      
+       boundry_error_message = "The following Rover attempted to head #{direction_facing} off the plateu! Rover deactivated in current position"
            
       case direction_facing
+      
         when "North" then 
-          unless @y_position == @plateu.length 
+          if @y_position == @plateu.length 
+            @messenger.puts boundry_error_message
+          else
             @y_position = @y_position + 1
           end  
           
         when "South" then 
-          unless @y_position == 0 
+          if @y_position == 0 
+            @messenger.puts boundry_error_message
+          else
             @y_position = @y_position - 1
           end
           
         when "East" then 
-          unless @x_position == @plateu.width
+          if @x_position == @plateu.width
+            @messenger.puts boundry_error_message
+          else
             @x_position = @x_position + 1
           end
-        when "West"  then 
-          @x_position = @x_position - 1            
+          
+        when "West" then 
+          if @x_position == 0
+            @messenger.puts boundry_error_message
+          else
+            @x_position = @x_position - 1
+          end
       end    
+      
     end 
             
   end

@@ -105,11 +105,14 @@ module Navigator
          @system.valid_plateu_definition?(plateu_definition).should be_true
        end
        
+       it "should stop moving the rover once it receives an invalid instruction" do
+         pending
+       end
+       
        it "should report an error if plateu definition is invalid" do
         @messenger.should_receive(:puts).with("Plateu definition is invalid. Exiting system. Please change plateu definition and restart system")
         plateu_definition = "0 0"
         @system.initialize_plateu(plateu_definition)
-        
        end
      end 
 
