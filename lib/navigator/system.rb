@@ -73,10 +73,11 @@ module Navigator
         x_definition = start_position[0]
         y_definition = start_position[1]
         direction_definition = start_position[2]
-        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition],@plateu)
+        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition], @plateu)
         instructions_definition = rover_input[:instructions]
         @rover.move(instructions_definition)
         @messenger.puts @rover.position_code
+        return @rover.position_code
       else
         @messenger.puts "Rover start position is invalid. No moves will be processed for this rover"
       end

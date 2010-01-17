@@ -3,8 +3,8 @@ end
 
 When /^I start the navigation system$/ do
   @messenger = StringIO.new
-  system = Navigator::System.new(@messenger)
-  system.start
+  @system = Navigator::System.new(@messenger)
+  @system.start
 end
 
 Then /^I should see "([^\"]*)"$/ do |message|
@@ -13,45 +13,34 @@ end
 
 Given /^I have started the system$/ do
   @messenger = StringIO.new
-  system = Navigator::System.new(@messenger)
-  system.start
+  @system = Navigator::System.new(@messenger)
+  @system.start
 end
 
 When /^I provide a instruction file called '([^\"]*)'$/ do |filename|
-  @messenger = StringIO.new
   @filename = filename
-  system = Navigator::System.new(@messenger)
-  system.start
-  system.get_file
+  @system.instruction_file = @filename
 end
 
 Then /^the system should read in the file and have it ready for processing$/ do
-  @messenger = StringIO.new
-  system = Navigator::System.new(@messenger)
-  system.start
-  system.get_file
-  system.read_file
+  @system.read_file
 end
 
 Then /^the system should process the file and move the rover at start position '([^\"]*)'$/ do |start_position|
-  @messenger = StringIO.new
-  system = Navigator::System.new(@messenger)
-  system.start
-  system.instruction_file = @filename
-  system.initialize_file
-  system.read_file
+  @start_position = start_position
+  puts start_position
   #plateu = Navigator::Plateu.new(@messenger)
   #rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
   
 end
 
 Then /^display the final position of the rover to the screen as '([^\"]*)'$/ do |final_position|
-  @messenger = StringIO.new
-  system = Navigator::System.new(@messenger)
-  system.start
-  system.initialize_file
-  rover_definition = {:start_position => '1 2 N', :instructions => "LMLMLMLMM"}
-  system.process_rover(rover_definition).should == final_position
+
+  rover_definition = {:start_position => [3, 3, "E"], :instructions => "MMRMMRMRRM"}
+  puts @system.process_rover(rover_definition)
+  
+  #puts rover_definition = {:start_position => @start_position, :instructions => "LMLMLMLMM"}
+  #@system.process_rover(rover_definition).should == final_position
   #rover = Navigator::Rover.new(@messenger, @x_position, @y_position, @direction_facing)
   #rover.position_code.should == final_position
 

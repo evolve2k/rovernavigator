@@ -21,7 +21,7 @@ module Navigator
     end
     
     def initialize_file
-      @instruction_file = "instructions/input1.txt" if (@instruction_file.nil? || @instruction_file.empty?)
+      @instruction_file = "instructions/input.txt" if (@instruction_file.nil? || @instruction_file.empty?)
     end
 
     def check_if_file_exists
@@ -56,7 +56,6 @@ module Navigator
         @plateu = Navigator::Plateu.new(@messenger)
         @plateu.width = @plateu_width_definition
         @plateu.length = @plateu_length_definition
-        @plateu.occupied_positions = "Occupied"
       else
         @messenger.puts "Plateu definition is invalid. Exiting system. Please change plateu definition and restart system"
       end
@@ -74,10 +73,11 @@ module Navigator
         x_definition = start_position[0]
         y_definition = start_position[1]
         direction_definition = start_position[2]
-        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition],@plateu)
+        @rover = Navigator::Rover.new(@messenger, x_definition, y_definition, @direction_code[direction_definition], @plateu)
         instructions_definition = rover_input[:instructions]
         @rover.move(instructions_definition)
         @messenger.puts @rover.position_code
+        return @rover.position_code
       else
         @messenger.puts "Rover start position is invalid. No moves will be processed for this rover"
       end
