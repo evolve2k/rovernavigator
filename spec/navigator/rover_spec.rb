@@ -114,10 +114,10 @@ module Navigator
           @rover.current_position.should == {"x_position" => 1,"y_position" => 2,"direction_facing" => "West"}
         end
         
-        describe "should check if the next move is invalid before moving" do
-          
-          describe "should not move forward if that move would put it outside the plateu" do
-          
+        describe "should ensure the next move is valid before moving" do
+
+          describe "should not move any further if the next move would go off the plateu" do
+
             it "should not move north" do
               @rover = Rover.new(@messenger,5,5,"North",@plateu)
               @rover.move("M")
@@ -148,19 +148,17 @@ module Navigator
               @rover.move("M")
             end
            
+             it "should have a method to deactivate the rover from taking further action" do
+               @rover.should respond_to(:deactivate?)
+             end           
+           
              it "should stop where it is" do
                @rover = Rover.new(@messenger,3,3,"North",@plateu)
                @rover.move("MMMRMMM") #directions will send the rover off the north boundry
                @rover.current_position.should == {"x_position" => 3,"y_position" => 5,"direction_facing" => "North"}
              end
-             
-             it "should have a method to deactivate the rover from taking further action" do
-               @rover.should respond_to(:deactivate?)
-             end
-           
           end     
         end
-        
       end
     end
     
@@ -170,7 +168,7 @@ module Navigator
        @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
     end
     
-    describe "when the rover receives invalid instructions" do
+    describe "when the rover receives an invalid instruction command (eg. instructions other than 'L','R' & 'M')" do
       it "should stop processing further instructions" do
         @rover = Rover.new(@messenger,0,0,"North", @plateu)
         @rover.move("MMRMMXRMMM") #Move includes an invalid command 'X' is an invalid character

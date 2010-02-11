@@ -1,3 +1,7 @@
+RUNNING THE SYSTEM
+To run the program from the command line, type: 
+ ruby bin/navigator
+
 PROBLEM: MARS ROVERS
 
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars.
