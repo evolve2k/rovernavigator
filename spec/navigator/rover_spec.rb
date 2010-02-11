@@ -88,7 +88,7 @@ module Navigator
     end    
    
     context "moving" do
-      context "in the direction it is current facing" do
+      context "in the direction it is currently facing" do
   
         it "should move north if facing north" do
           @rover = Rover.new(@messenger,2,2,"North", @plateu)
@@ -116,39 +116,39 @@ module Navigator
         
         describe "should check if the next move is invalid before moving" do
           
-          describe "should not move forward if that move would put it outside the grid" do
+          describe "should not move forward if that move would put it outside the plateu" do
           
-            it "should not move north if that move would put it outside the grid" do
+            it "should not move north" do
               @rover = Rover.new(@messenger,5,5,"North",@plateu)
               @rover.move("M")
               @rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "North"}
             end
           
-            it "should not move south if that move would put it outside the grid" do
+            it "should not move south" do
               @rover = Rover.new(@messenger,0,0,"South",@plateu)
               @rover.move("M")
               @rover.current_position.should == {"x_position" => 0,"y_position" => 0,"direction_facing" => "South"}
             end
           
-            it "should not move east if that move would put it outside the grid" do
+            it "should not move east" do
               @rover = Rover.new(@messenger,5,5,"East",@plateu)
               @rover.move("M")
               @rover.current_position.should == {"x_position" => 5,"y_position" => 5,"direction_facing" => "East"}
             end
           
-            it "should not move west if that move would put it outside the grid" do
+            it "should not move west" do
               @rover = Rover.new(@messenger,0,0,"West",@plateu)
               @rover.move("M")
               @rover.current_position.should == {"x_position" => 0,"y_position" => 0,"direction_facing" => "West"}
             end
           
-            it "should report an error if the Rover attempts to go outside the screen" do
+            it "should report an error" do
               @messenger.should_receive(:puts).with("The following Rover attempted to fall off the plateu! Rover deactivated in current position")
               @rover = Rover.new(@messenger,0,0,"West",@plateu)
               @rover.move("M")
             end
            
-             it "should stop where it is after an attempt to move outside the plateu boundry" do
+             it "should stop where it is" do
                @rover = Rover.new(@messenger,3,3,"North",@plateu)
                @rover.move("MMMRMMM") #directions will send the rover off the north boundry
                @rover.current_position.should == {"x_position" => 3,"y_position" => 5,"direction_facing" => "North"}
@@ -158,18 +158,7 @@ module Navigator
                @rover.should respond_to(:deactivate?)
              end
            
-          end
-          
-          
-          describe "checking that the next move is not onto an occupied position" do
-            
-            
-            
-                   
-            it "should check that the next move is not onto an occupied position" do
-              @rover.move("MMM")
-            end
-          end        
+          end     
         end
         
       end
@@ -177,21 +166,21 @@ module Navigator
     
     it "should be able to accept and process a string of instructions" do
        @rover = Rover.new(@messenger,0,0,"North",@plateu)
-       @rover.move("MMMMM") #LMLMLMLMM
+       @rover.move("MMMMM") 
        @rover.current_position.should == {"x_position" => 0,"y_position" => 5,"direction_facing" => "North"}   
     end
     
     describe "when the rover receives invalid instructions" do
-      it "should stop processing further instructions if it receives an invalid user instruction" do
+      it "should stop processing further instructions" do
         @rover = Rover.new(@messenger,0,0,"North", @plateu)
-        @rover.move("MMRMMORMMM") #ORMMM O is an invalid character
+        @rover.move("MMRMMXRMMM") #Move includes an invalid command 'X' is an invalid character
         @rover.current_position.should == {"x_position" => 2,"y_position" => 2,"direction_facing" => "East"}   
       end
       
-      it "should report that it has stopped processing" do
+      it "should report that it has stopped processing instructions" do
         @rover = Rover.new(@messenger,0,0,"North", @plateu)        
         @messenger.should_receive(:puts).with("Warning: The following Rover received an invalid user instruction and for saftey stopped after the last valid move, at this position:")  
-        @rover.move("MMRMMORMMM") #ORMMM O is an invalid character         
+        @rover.move("MMRMMXRMMM") #Move includes an invalid command. 'X' is an invalid character
       end  
     
     end

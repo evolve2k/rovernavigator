@@ -122,19 +122,6 @@ module Navigator
            
      end
      
-     it "should print the current rover position code after moving" do
-       #@messenger.should_receive(:puts).with("1 2 N")
-       #@messenger.puts @rover.position_code
-     end
-     
-     it "should record the rovers final position as occupied in the plateu" do
-       rover_input = {:start_position => "0 0 N",:instructions => "MMM"}
-       position_code = "0 3 N"
-       process_rover(rover_input)
-       plateu = Plateu.new(@messenger)
-       plateu.occupied_positions.to_a.last.should == position_code
-     end
-   
      describe "to ensure each rovers start position is valid" do
      
        it "should check if rover x co-ordinate is valid" do  
