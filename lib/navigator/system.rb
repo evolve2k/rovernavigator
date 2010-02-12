@@ -32,15 +32,12 @@ module Navigator
       @rovers = []
       rover_number = 0
       File.open(@instruction_file,"r") do |file|
-        #@messenger.puts "Processing File.."
-        @plateu_definition = file.gets.chomp #sets the plateu size definition to the first line of the file
-        #@messenger.puts "Plateu area defined: " + @plateu_definition   
+        #Set the plateu size definition to the first line of the file
+        @plateu_definition = file.gets.chomp
+        #Process lines with rover definitions into an array of Rovers.
         while line = file.gets
           rover_definition = {:start_position => line.split, :instructions => file.gets.chomp}
           @rovers << rover_definition
-          #@messenger.puts "Rover #{rover_number = rover_number + 1}:"
-          #@messenger.puts " - Start position: #{rover_definition[:start_position]}"
-          #@messenger.puts " - Instructions: #{rover_definition[:instructions]} \n"  
         end
       end
       @messenger.puts "File read successfully"

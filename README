@@ -72,25 +72,24 @@ to go contiously forward (if at end of array).
 
 I also implemented a hash of a rover's current position eg.
  {"x_position" => 2, "y_position" => 2, "direction_facing" => "North"}  
-but in hindsight may have just gone with passing the short codes around
-"12N" considering that for the audience they would likely follow this convention 
+but in hindsight may have just gone with passing the short codes around eg. "12N" 
+considering that for the audience they would likely follow this convention 
 just as easily.  It meant that I was passing around two versions of current position, 
-the full version and the SHORTCODE as I called it. Grounds for future refactoring.
+the full version and the SHORTCODE as I called it. Grounds for future refactoring once
+I knew which way the project was headed.
 
 I also considered the output from my program.
-I have created some output text as the program processes the file.
-As I think it would be easier for the engineer to get a glimpse of what the 
+I had created some output text as the program processes the file.
+As I thought it would be easier for the engineer to get a glimpse of what the 
 program is doing, even just confirmation he's processing the right rover
 instructions I think is useful.
 
-So Ive indulged to print more information to the screen before finally printing
-the desired output.
+But based on the spec Ive decided just to print that the file processed ok, 
+and then the Output itself.
 
 When working in a team and with the customers feedback I'd get a much better
 feel of if it is critical that just the output codes are printed or that 
 a more verbose output would be useful (or even an option to pick).
-It would take me less than 2 mins to remove those outputs if that was the spec,
-so assume them gone in 5 mins if that is a critical requirement.
 
 Ive enjoyed making this software and Im actually very interested to hear your feedback.
 
