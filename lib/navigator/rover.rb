@@ -62,44 +62,57 @@ module Navigator
    
     def move_forward
       #Makes the Rover move forward in the direction the rover is currently facing
-       boundry_error_message = "The following Rover attempted to fall off the plateu! Rover deactivated in current position"
+      @boundry_error_message = "The following Rover attempted to fall off the plateu! Rover deactivated in current position"
       case direction_facing
-        when "North" then 
-          if @y_position == @plateu.length 
-            @messenger.puts boundry_error_message
-            @deactivate = true
-          else
-            @y_position = @y_position + 1
-          end  
-          
-        when "South" then 
-          if @y_position == 0 
-            @messenger.puts boundry_error_message
-            @deactivate = true
-          else
-            @y_position = @y_position - 1
-          end
-          
-        when "East" then 
-          if @x_position == @plateu.width
-            @messenger.puts boundry_error_message
-            @deactivate = true
-          else
-            @x_position = @x_position + 1
-          end
-          
-        when "West" then 
-          if @x_position == 0
-            @messenger.puts boundry_error_message
-            @deactivate = true
-          else
-            @x_position = @x_position - 1
-          end
+        when "North" then go_north
+        when "South" then go_south
+        when "East" then go_east
+        when "West" then go_west
         else
           @messenger.puts "System Error: Rover has unexpectedly received invalid direction instructions. Shutting down for rover safety."
           @deactivate = true
       end    
     end 
+    
+    def go_north
+      #Deactivate if at Northern edge of plateu otherwise move North
+      if @y_position == @plateu.length 
+        @messenger.puts @boundry_error_message
+        @deactivate = true
+      else
+        @y_position = @y_position + 1
+      end  
+    end
+    
+    def go_south
+      #Deactivate if at Southern edge of plateu otherwise move South
+      if @y_position == 0 
+        @messenger.puts @boundry_error_message
+        @deactivate = true
+      else
+        @y_position = @y_position - 1
+      end    
+    end
+    
+    def go_east
+      #Deactivate if at Eastern edge of plateu otherwise move East
+      if @x_position == @plateu.width
+        @messenger.puts @boundry_error_message
+        @deactivate = true
+      else
+        @x_position = @x_position + 1
+      end 
+    end
+    
+    def go_west
+      #Deactivate if at Western edge of plateu otherwise move West
+      if @x_position == 0
+        @messenger.puts @boundry_error_message
+        @deactivate = true
+      else
+        @x_position = @x_position - 1
+      end
+    end
             
   end
 end
