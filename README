@@ -1,17 +1,22 @@
---------------------------------------------------------------------------
 
+ROVER NAVIGATOR 
+by Richard Khoo
+
+--------------------------------------------------------------------------
 Have fun looking around and please feel free to refer any questions to me:
- Richard Khoo
- richardakhoo@gmail.com
-
+  richardakhoo@gmail.com
 --------------------------------------------------------------------------
-
 RUNNING THE SYSTEM
+
 To run the program from the command line, type: 
  ruby bin/navigator
-
+ 
+NB. When loaded, the system will ask you for an instruction file to process.
+Press ENTER to use the default instruction file (input1.txt), 
+this file uses the test scenario data provided in the coding assignment.
+You can store your own instruction files under the folder 'instructions'
+ 
 --------------------------------------------------------------------------
-
 DESIGN DECISIONS & ASSUMPTIONS
 
 I have built my software in Ruby 1.8.7 and have followed a BDD approach 
@@ -100,7 +105,6 @@ Richard Khoo
 richardakhoo@gmail.com
 
 --------------------------------------------------------------------------
-
 PROBLEM: MARS ROVERS
 
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars.
