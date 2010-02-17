@@ -75,6 +75,7 @@ module Navigator
         when "South" then 
           if @y_position == 0 
             @messenger.puts boundry_error_message
+            @deactivate = true
           else
             @y_position = @y_position - 1
           end
@@ -82,6 +83,7 @@ module Navigator
         when "East" then 
           if @x_position == @plateu.width
             @messenger.puts boundry_error_message
+            @deactivate = true
           else
             @x_position = @x_position + 1
           end
@@ -89,9 +91,13 @@ module Navigator
         when "West" then 
           if @x_position == 0
             @messenger.puts boundry_error_message
+            @deactivate = true
           else
             @x_position = @x_position - 1
           end
+        else
+          @messenger.puts "System Error: Rover has unexpectedly received invalid direction instructions. Shutting down for rover safety."
+          @deactivate = true
       end    
     end 
             
